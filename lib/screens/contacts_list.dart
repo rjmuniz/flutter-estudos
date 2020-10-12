@@ -1,4 +1,4 @@
-import 'package:bytebank_app/database/app_database.dart';
+import 'package:bytebank_app/dao/contact_dao.dart';
 import 'package:bytebank_app/models/contact.dart';
 import 'package:bytebank_app/screens/contact_form.dart';
 import 'package:flutter/material.dart';
@@ -11,13 +11,15 @@ class ContactsList extends StatefulWidget {
 }
 
 class _ContactsListState extends State<ContactsList> {
+  final ContactDao _dao = ContactDao();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppBarTitle)),
       body: FutureBuilder<List<Contact>>(
           initialData: [],
-          future: findAll(),
+          future: _dao.findAll(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
@@ -49,7 +51,8 @@ class _ContactsListState extends State<ContactsList> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("No contacts saved", style: TextStyle(fontSize: 16.0)),
+                      Text("No contacts saved",
+                          style: TextStyle(fontSize: 16.0)),
                     ],
                   ),
                 );
@@ -57,18 +60,20 @@ class _ContactsListState extends State<ContactsList> {
                 debugPrint('active');
                 return Text('active');
             }
-            ;
+
             return Text('Unknow error');
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ContactForm(),
-            ),
-          ).then((context)=> this.setState(() {
-            debugPrint('Refresh');
-          }));
+          Navigator.of(context)
+              .push(
+                MaterialPageRoute(
+                  builder: (context) => ContactForm(),
+                ),
+              )
+              .then((context) => this.setState(() {
+                    debugPrint('Refresh');
+                  }));
         },
         child: Icon(Icons.add),
       ),

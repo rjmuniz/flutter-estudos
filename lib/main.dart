@@ -1,4 +1,6 @@
 import 'package:bytebank_app/screens/Dashboard.dart';
+import 'package:bytebank_app/screens/contact_form.dart';
+import 'package:bytebank_app/screens/contacts_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,6 +12,12 @@ class BytebankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        initialRoute: Dashboard.route,
+        routes: {
+          Dashboard.route: (context) => Dashboard(),
+          ContactsList.route: (context) => ContactsList(),
+          ContactForm.route: (context) => ContactForm()
+        },
         theme: ThemeData(
             primaryColor: Colors.green[900],
             accentColor: Colors.blueAccent[700],

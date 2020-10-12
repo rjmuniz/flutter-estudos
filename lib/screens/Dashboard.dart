@@ -2,6 +2,7 @@ import 'package:bytebank_app/screens/contacts_list.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
+  static const String route = '/dashboard';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,9 +22,7 @@ class Dashboard extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               child: InkWell(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ContactsList(),
-                  ));
+                  Navigator.of(context).pushNamed(ContactsList.route);
                 },
                 child: Container(
                   padding: EdgeInsets.all(8.0),

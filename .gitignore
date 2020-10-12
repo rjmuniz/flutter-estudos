@@ -44,18 +44,6 @@ History
 .packages
 .pub-cache/
 .pub/
-<<<<<<< HEAD
-/build/
-
-# Web related
-lib/generated_plugin_registrant.dart
-
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-=======
 build/
 lib/generated_plugin_registrant.dart
 
@@ -223,4 +211,3 @@ fabric.properties
     Blog
     About
 
->>>>>>> cb11c9e3558390414d6022cfcc6458839b5b5f13

@@ -1,39 +1,14 @@
 
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@rjmuniz
-rjmuniz /
-flutter-estudos
+# Created by https://www.toptal.com/developers/gitignore/api/flutter,intellij,code
+# Edit at https://www.toptal.com/developers/gitignore?templates=flutter,intellij,code
 
-1
-0
-
-    0
-
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-
-    Settings
-
-flutter-estudos/.gitignore
-@rjmuniz
-rjmuniz Update .gitignore
-Latest commit a690a81 yesterday
-History
-1 contributor
-166 lines (137 sloc) 3.78 KB
-
-# Created by https://www.toptal.com/developers/gitignore/api/flutter,intellij
-# Edit at https://www.toptal.com/developers/gitignore?templates=flutter,intellij
+### Code ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
 ### Flutter ###
 # Flutter/Dart/Pub related
@@ -196,18 +171,4 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
 
-# End of https://www.toptal.com/developers/gitignore/api/flutter,intellij
-
-    © 2020 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Status
-    Help
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
-
+# End of https://www.toptal.com/developers/gitignore/api/flutter,intellij,code

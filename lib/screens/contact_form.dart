@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:bytebank_app/dao/contact_dao.dart';
+import 'package:bytebank_app/database/dao/contact_dao.dart';
 import 'package:bytebank_app/models/contact.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class ContactFormArguments {
 }
 
 class ContactForm extends StatefulWidget {
-  static const String route = '/contact_form';
+  static const String route = '/contact/new';
 
   @override
   _ContactFormState createState() => _ContactFormState();
@@ -75,10 +75,14 @@ class _ContactFormState extends State<ContactForm> {
                         int.tryParse(_accountNumberController.text);
                     final Contact newContact =
                         Contact(id, fullname, accountNumber);
-                    if(newContact.id == 0)
-                    _dao.save(newContact).then((id) => Navigator.pop(context));
+                    if (newContact.id == 0)
+                      _dao
+                          .save(newContact)
+                          .then((id) => Navigator.pop(context));
                     else
-                      _dao.update(newContact).then((id) => Navigator.pop(context));
+                      _dao
+                          .update(newContact)
+                          .then((id) => Navigator.pop(context));
                   },
                 ),
               ),

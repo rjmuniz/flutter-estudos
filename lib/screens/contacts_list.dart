@@ -1,9 +1,11 @@
-import 'package:bytebank_app/dao/contact_dao.dart';
+import 'package:bytebank_app/components/progress.dart';
+import 'package:bytebank_app/database/dao/contact_dao.dart';
 import 'package:bytebank_app/models/contact.dart';
 import 'package:bytebank_app/screens/contact_form.dart';
+import 'package:bytebank_app/screens/transaction_form.dart';
 import 'package:flutter/material.dart';
 
-const String AppBarTitle = 'Contatos';
+const String AppBarTitle = 'Transfer';
 
 class ContactsList extends StatefulWidget {
   static const route = '/contact_list';
@@ -28,39 +30,20 @@ class _ContactsListState extends State<ContactsList> {
                 final List<Contact> contacts = snapshot.data;
                 return ListView.builder(
                   itemBuilder: (context, index) {
-                    return _ContactItem(contacts[index], _dao, this);
+                    final Contact contact = contacts[index];
+                    return _ContactItem(contact, _dao, this,
+                      onClick: (){
+                        Navigator.pushNamed(context, TransactionForm.route, arguments: contact);
+                      },);
                   },
                   itemCount: contacts.length,
                 );
               case ConnectionState.waiting:
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'Loading...',
-                          style: TextStyle(fontSize: 24.0),
-                        ),
-                      )
-                    ],
-                  ),
-                );
+                return Progress();
               case ConnectionState.none:
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("No contacts saved",
-                          style: TextStyle(fontSize: 16.0)),
-                    ],
-                  ),
-                );
+                return Progress(message: "No contacts saved", showLoading: false);
               case ConnectionState.active:
-                debugPrint('active');
-                return Text('active');
+                return Progress(message: 'active');
             }
 
             return Text('Unknow error');
@@ -89,21 +72,25 @@ class _ContactItem extends StatelessWidget {
   final Contact contact;
   final ContactDao _dao;
   final _ContactsListState parent;
+  final Function onClick;
   static const editValue = "edit";
   static const deleteValue = "delete";
 
-  _ContactItem(this.contact, this._dao, this.parent);
+  _ContactItem(this.contact, this._dao, this.parent, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTapDown: (details) {
+    /*  onTapDown: (details) {
         debugPrint('tapping');
         RelativeRect position =
             RelativeRect.fromLTRB(0, details.globalPosition.dy, -1, 0);
         _showPopup(context, position);
+      },*/
+     // onLongPress: () {},
+      onTap: (){
+        onClick();
       },
-      onLongPress: () {},
       child: Card(
         child: ListTile(
           title: Text(
@@ -116,7 +103,7 @@ class _ContactItem extends StatelessWidget {
       ),
     );
   }
-
+/*
   void _showPopup(BuildContext context, RelativeRect position) async {
     final String choice =
         await showMenu<String>(context: context, position: position, items: [
@@ -156,5 +143,5 @@ class _ContactItem extends StatelessWidget {
       _dao.delete(this.contact);
       this.parent.modifyMe();
     }
-  }
+  }*/
 }

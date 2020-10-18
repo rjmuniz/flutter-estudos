@@ -1,4 +1,4 @@
-import 'package:bytebank_app/dao/contact_dao.dart';
+import 'package:bytebank_app/database/dao/contact_dao.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

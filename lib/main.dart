@@ -1,6 +1,8 @@
 import 'package:bytebank_app/screens/Dashboard.dart';
 import 'package:bytebank_app/screens/contact_form.dart';
 import 'package:bytebank_app/screens/contacts_list.dart';
+import 'package:bytebank_app/screens/transaction_form.dart';
+import 'package:bytebank_app/screens/transactions_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +18,9 @@ class BytebankApp extends StatelessWidget {
         routes: {
           Dashboard.route: (context) => Dashboard(),
           ContactsList.route: (context) => ContactsList(),
-          ContactForm.route: (context) => ContactForm()
+          ContactForm.route: (context) => ContactForm(),
+          TransactionList.route: (context) => TransactionList(),
+          TransactionForm.route: (context) => TransactionForm(),
         },
         theme: ThemeData(
             primaryColor: Colors.green[900],

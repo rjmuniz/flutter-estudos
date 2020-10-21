@@ -173,4 +173,4 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,intellij,code
 
-database
+bytebank-api-runnable/database

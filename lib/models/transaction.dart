@@ -1,26 +1,28 @@
-import 'dart:convert';
-
 import 'package:bytebank_app/models/contact.dart';
 
+const String _idField = 'id';
+const String _contactField = 'contact';
+const String _valueField = 'value';
+
 class Transaction {
+  final String id;
   final double value;
   final Contact contact;
 
-  static const String _contactField = 'contact';
-  static const String _valueField = 'value';
-
-  Transaction(this.value, this.contact);
+  Transaction(this.id, this.value, this.contact);
 
   @override
   String toString() {
-    return 'Transaction{$_valueField: $value, $_contactField: $contact}';
+    return 'Transaction{$_idField: $id, $_valueField: $value, $_contactField: $contact}';
   }
 
   Transaction.fromJson(Map<String, dynamic> json)
-      : value = json[_valueField],
+      : id = json[_idField],
+        value = json[_valueField],
         contact = Contact.fromJson(json[_contactField]);
 
   Map<String, dynamic> toJson() => {
+        _idField: this.id,
         _valueField: this.value,
         _contactField: this.contact.toJson()
       };

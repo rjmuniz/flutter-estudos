@@ -27,4 +27,15 @@ class Contact {
         _nameField: this.fullName,
         _accountNumberField: this.accountNumber,
       };
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Contact &&
+          runtimeType == other.runtimeType &&
+          fullName == other.fullName &&
+          accountNumber == other.accountNumber;
+
+  @override
+  int get hashCode => fullName.hashCode ^ accountNumber.hashCode;
 }

@@ -13,38 +13,47 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Dashboard')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //Image.network('https://cdn.pixabay.com/photo/2020/05/04/09/09/giraffe-5128394_960_720.jpg')
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset('images/bytebank_logo.png'),
-          ),
-          Container(
-            height: 120,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+      body: LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _FeatureItem(
-                  transferText,
-                  Icons.monetization_on,
-                  onClick: () {
-                    _navigateContactList(context);
-                  },
+                //Image.network('https://cdn.pixabay.com/photo/2020/05/04/09/09/giraffe-5128394_960_720.jpg')
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset('images/bytebank_logo.png'),
                 ),
-                _FeatureItem(
-                  transactionFeedText,
-                  Icons.description,
-                  onClick: () {
-                    _navigateTransactionFeedList(context);
-                  },
-                )
+                Container(
+                  height: 120,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      FeatureItem(
+                        transferText,
+                        Icons.monetization_on,
+                        onClick: () {
+                          _navigateContactList(context);
+                        },
+                      ),
+                      FeatureItem(
+                        transactionFeedText,
+                        Icons.description,
+                        onClick: () {
+                          _navigateTransactionFeedList(context);
+                        },
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -58,12 +67,12 @@ class Dashboard extends StatelessWidget {
   }
 }
 
-class _FeatureItem extends StatelessWidget {
+class FeatureItem extends StatelessWidget {
   final String titleFeature;
   final IconData iconData;
   final Function onClick;
 
-  _FeatureItem(this.titleFeature, this.iconData, {@required this.onClick})
+  FeatureItem(this.titleFeature, this.iconData, {@required this.onClick})
       : assert(iconData != null),
         assert(onClick != null);
 

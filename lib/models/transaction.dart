@@ -9,7 +9,7 @@ class Transaction {
   final double value;
   final Contact contact;
 
-  Transaction(this.id, this.value, this.contact);
+  Transaction(this.id, this.value, this.contact) ;
 
   @override
   String toString() {
@@ -26,4 +26,15 @@ class Transaction {
         _valueField: this.value,
         _contactField: this.contact.toJson()
       };
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Transaction &&
+          runtimeType == other.runtimeType &&
+          value == other.value &&
+          contact == other.contact;
+
+  @override
+  int get hashCode => value.hashCode ^ contact.hashCode;
 }

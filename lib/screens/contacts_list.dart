@@ -1,8 +1,8 @@
 import 'package:bytebank_app/components/progress.dart';
-import 'package:bytebank_app/database/dao/contact_dao.dart';
 import 'package:bytebank_app/models/contact.dart';
 import 'package:bytebank_app/screens/contact_form.dart';
 import 'package:bytebank_app/screens/transaction_form.dart';
+import 'package:bytebank_app/widgets/app_dependencies.dart';
 import 'package:flutter/material.dart';
 
 const String AppBarTitle = 'Transfer';
@@ -15,15 +15,15 @@ class ContactsList extends StatefulWidget {
 }
 
 class _ContactsListState extends State<ContactsList> {
-  final ContactDao _dao = ContactDao();
-
   @override
   Widget build(BuildContext context) {
+    final dependencies = AppDependencies.of(context);
+
     return Scaffold(
       appBar: AppBar(title: Text(AppBarTitle)),
       body: FutureBuilder<List<Contact>>(
           initialData: [],
-          future: _dao.findAll(),
+          future: dependencies.contactDao.findAll(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
@@ -31,17 +31,22 @@ class _ContactsListState extends State<ContactsList> {
                 return ListView.builder(
                   itemBuilder: (context, index) {
                     final Contact contact = contacts[index];
-                    return _ContactItem(contact, _dao, this,
-                      onClick: (){
-                        Navigator.pushNamed(context, TransactionForm.route, arguments: contact);
-                      },);
+                    return ContactItem(
+                      contact,
+                      this,
+                      onClick: () {
+                        Navigator.pushNamed(context, TransactionForm.route,
+                            arguments: contact);
+                      },
+                    );
                   },
                   itemCount: contacts.length,
                 );
               case ConnectionState.waiting:
                 return Progress();
               case ConnectionState.none:
-                return Progress(message: "No contacts saved", showLoading: false);
+                return Progress(
+                    message: "No contacts saved", showLoading: false);
               case ConnectionState.active:
                 return Progress(message: 'active');
             }
@@ -68,27 +73,26 @@ class _ContactsListState extends State<ContactsList> {
   }
 }
 
-class _ContactItem extends StatelessWidget {
+class ContactItem extends StatelessWidget {
   final Contact contact;
-  final ContactDao _dao;
   final _ContactsListState parent;
   final Function onClick;
   static const editValue = "edit";
   static const deleteValue = "delete";
 
-  _ContactItem(this.contact, this._dao, this.parent, {@required this.onClick});
+  ContactItem(this.contact, this.parent, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-    /*  onTapDown: (details) {
+      /*  onTapDown: (details) {
         debugPrint('tapping');
         RelativeRect position =
             RelativeRect.fromLTRB(0, details.globalPosition.dy, -1, 0);
         _showPopup(context, position);
       },*/
-     // onLongPress: () {},
-      onTap: (){
+      // onLongPress: () {},
+      onTap: () {
         onClick();
       },
       child: Card(

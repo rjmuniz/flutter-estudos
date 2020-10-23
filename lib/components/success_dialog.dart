@@ -48,7 +48,7 @@ class ResponseDialog extends StatelessWidget {
   const ResponseDialog({
     this.title = "",
     this.message = "",
-    this.buttonText = "OK",
+    this.buttonText = "Ok",
     this.icon = Icons.info,
     this.colorIcon = Colors.blue,
   });

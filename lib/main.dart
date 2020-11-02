@@ -1,18 +1,28 @@
+import 'package:bytebank_app/components/theme.dart';
 import 'package:bytebank_app/database/dao/contact_dao.dart';
 import 'package:bytebank_app/http/webclients/transactions_webclient.dart';
 import 'package:bytebank_app/screens/Dashboard.dart';
 import 'package:bytebank_app/screens/contact_form.dart';
 import 'package:bytebank_app/screens/contacts_list.dart';
-import 'package:bytebank_app/screens/transaction_form.dart';
+import 'package:bytebank_app/screens/counter.dart';
 import 'package:bytebank_app/screens/transactions_list.dart';
 import 'package:bytebank_app/widgets/app_dependencies.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(BytebankApp(
     contactDao: ContactDao(),
     transactionsWebClient: TransactionsWebClient(),
   ));
+}
+
+class LogObserver extends BlocObserver {
+  @override
+  void onChange(Cubit cubit, Change change) {
+    print("${cubit.runtimeType} > $change");
+    super.onChange(cubit, change);
+  }
 }
 
 class BytebankApp extends StatelessWidget {
@@ -30,22 +40,21 @@ class BytebankApp extends StatelessWidget {
     return AppDependencies(
       contactDao: this.contactDao,
       transactionsWebClient: this.transactionsWebClient,
+
       child: MaterialApp(
-        initialRoute: Dashboard.route,
+
+        initialRoute: DashboardContainer.route,
+        //initialRoute: CounterContainer.route,
+
         routes: {
-          Dashboard.route: (context) => Dashboard(),
-          ContactsList.route: (context) => ContactsList(),
+          DashboardContainer.route: (context) => DashboardContainer(),
+          ContactsListContainer.route: (context) => ContactsListContainer(),
           ContactForm.route: (context) => ContactForm(),
           TransactionList.route: (context) => TransactionList(),
-          TransactionForm.route: (context) => TransactionForm(),
+          CounterContainer.route: (context)=> CounterContainer(),
+       //   TransactionFormContainer.route: (context) => TransactionFormContainer(Contact()),
         },
-        theme: ThemeData(
-            primaryColor: Colors.green[900],
-            accentColor: Colors.blueAccent[700],
-            buttonTheme: ButtonThemeData(
-              buttonColor: Colors.blueAccent[700],
-              textTheme: ButtonTextTheme.primary,
-            )),
+        theme: bytebankTheme,
         // home: Dashboard()
         //  home: TransactionAuthDialog(),
       ),

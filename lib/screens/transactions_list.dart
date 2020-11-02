@@ -23,11 +23,11 @@ class TransactionList extends StatelessWidget {
 
           switch (snapshot.connectionState) {
             case ConnectionState.none:
-              control = Message(
+              control = CenteredMessage(
                   message: 'No transactions found', icon: Icons.warning);
               break;
             case ConnectionState.active:
-              control = Message(message: 'active');
+              control = CenteredMessage(message: 'active');
               break;
             case ConnectionState.waiting:
               control = Progress();
@@ -45,7 +45,7 @@ class TransactionList extends StatelessWidget {
   Widget populateTransactions(AsyncSnapshot<List<Transaction>> snapshot) {
     if (snapshot.hasError) {
       print(snapshot.error.toString());
-      return Message(message: "Erro ao acessar a api",//snapshot.error.toString(),
+      return CenteredMessage(message: "Erro ao acessar a api",//snapshot.error.toString(),
           icon: Icons.error);
     }
     if (snapshot.hasData) {
@@ -72,6 +72,6 @@ class TransactionList extends StatelessWidget {
         );
     }
 
-    return Message(message: 'No transactions found', icon: Icons.warning);
+    return CenteredMessage(message: 'No transactions found', icon: Icons.warning);
   }
 }

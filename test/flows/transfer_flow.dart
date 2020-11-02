@@ -28,7 +28,7 @@ void main() {
         transactionsWebClient: mockTransactionsWebclient,
         contactDao: mockContactDao));
 
-    final dashboard = find.byType(Dashboard);
+    final dashboard = find.byType(DashboardView);
     expect(dashboard, findsOneWidget);
 
     final sampleContact = Contact(0, 'Fulano da Silva',4321);

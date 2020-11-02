@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-
-
 class TransactionAuthDialog extends StatefulWidget {
-  static const Key textFieldPasswordKey = Key("TransactionAuthDialog.TextFieldPassword");
+  static const Key textFieldPasswordKey =
+      Key("TransactionAuthDialog.TextFieldPassword");
   final Function(String password) onConfirm;
 
   const TransactionAuthDialog({@required this.onConfirm});
@@ -32,13 +31,16 @@ class _TransactionAuthDialogState extends State<TransactionAuthDialog> {
       ),
       actions: [
         FlatButton(
-            onPressed: () => Navigator.pop(context), child: Text("Cancel")),
+          onPressed: () => Navigator.pop(context),
+          child: Text("Cancel"),
+        ),
         FlatButton(
-            onPressed: () {
-              widget.onConfirm(_passwordController.text);
-              Navigator.pop(context);
-            },
-            child: Text("Confirm"))
+          onPressed: () {
+            widget.onConfirm(_passwordController.text);
+            Navigator.pop(context);
+          },
+          child: Text("Confirm"),
+        )
       ],
     );
   }

@@ -48,6 +48,13 @@ class ContactDao {
     );
   }
 
+  Future<List<Contact>> findAll() async {
+    final Database db = await getDatabase();
+    await Future.delayed(Duration(seconds: 1));
+    return _toList(await db.query(_tableName));
+  }
+
+
   Map<String, dynamic> _toMap(Contact contact) {
     final Map<String, dynamic> contactMap = Map();
     //contactMap[_idColumn] = contact.id; //incrementado automaticamente
@@ -56,11 +63,6 @@ class ContactDao {
     return contactMap;
   }
 
-  Future<List<Contact>> findAll() async {
-    final Database db = await getDatabase();
-
-    return _toList(await db.query(_tableName));
-  }
 
   Future<Contact> findOne(int id) async {
     final Database db = await getDatabase();

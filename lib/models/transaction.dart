@@ -11,10 +11,6 @@ class Transaction {
 
   Transaction(this.id, this.value, this.contact) ;
 
-  @override
-  String toString() {
-    return 'Transaction{$_idField: $id, $_valueField: $value, $_contactField: $contact}';
-  }
 
   Transaction.fromJson(Map<String, dynamic> json)
       : id = json[_idField],
@@ -26,6 +22,12 @@ class Transaction {
         _valueField: this.value,
         _contactField: this.contact.toJson()
       };
+
+
+  @override
+  String toString() {
+    return 'Transaction{$_idField: $id, $_valueField: $value, $_contactField: $contact}';
+  }
 
   @override
   bool operator ==(Object other) =>

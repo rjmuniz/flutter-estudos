@@ -17,7 +17,7 @@ void main() {
     final mockContactDao = MockContactDao();
 
     await tester.pumpWidget(BytebankApp(contactDao: mockContactDao, transactionsWebClient: null,));
-    final dashboard = find.byType(Dashboard);
+    final dashboard = find.byType(DashboardView);
     expect(dashboard, findsOneWidget);
 
     await clickOnTheTransferFeatureItem(tester);

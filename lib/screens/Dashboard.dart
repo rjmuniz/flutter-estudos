@@ -1,4 +1,5 @@
 import 'package:bytebank_app/components/BlocContainer.dart';
+import 'package:bytebank_app/components/localization.dart';
 import 'package:bytebank_app/models/name.dart';
 import 'package:bytebank_app/screens/contacts_list.dart';
 import 'package:bytebank_app/screens/name.dart';
@@ -14,20 +15,25 @@ class DashboardContainer extends BlocContainer {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => NameCubit("Ricardo"),
-      child: DashboardView(),
+      child: I18NLoadingContainer(
+        creator: ( messages) => DashboardView(messages)
+      ),
     );
   }
 }
 
 class DashboardView extends StatelessWidget {
-  final String transferText = 'Transfer';
-  final String transactionFeedText = 'Transaction Feed';
+  final I18NMessages messages;
+
+  const DashboardView(this.messages);
 
   @override
   Widget build(BuildContext context) {
+    final i18n = DashboardViewI18N(context);
+
     return Scaffold(
       appBar: AppBar(
-          title: BlocBuilder(
+          title: BlocBuilder<NameCubit, String>(
         builder: (context, state) => Text('Welcome $state'),
       )),
       body: Column(
@@ -45,21 +51,21 @@ class DashboardView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: [
                 FeatureItem(
-                  transferText,
+                  i18n.transfer,
                   Icons.monetization_on,
                   onClick: () {
                     _navigateContactList(context);
                   },
                 ),
                 FeatureItem(
-                  transactionFeedText,
+                  i18n.transaction_feed,
                   Icons.description,
                   onClick: () {
                     _navigateTransactionFeedList(context);
                   },
                 ),
                 FeatureItem(
-                  'Change name',
+                  i18n.change_name,
                   Icons.person_outline,
                   onClick: () => _showChangeName(context),
                 )
@@ -88,6 +94,20 @@ class DashboardView extends StatelessWidget {
     ));
   }
 }
+
+class DashboardViewI18N extends ViewI18N{
+  DashboardViewI18N(BuildContext context):super(context);
+
+  String get transfer => localize({'pt-br':'Transferir', 'en': 'Transfer'});
+
+  String get transaction_feed =>localize({'pt-br':'Transações', 'en': 'Transacion feed'});
+
+  String get change_name => localize({'pt-br':'Mudar o nome', 'en': 'Change name'});
+
+
+
+}
+
 
 class FeatureItem extends StatelessWidget {
   final String titleFeature;

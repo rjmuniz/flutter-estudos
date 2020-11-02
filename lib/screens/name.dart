@@ -2,7 +2,6 @@ import 'package:bytebank_app/components/BlocContainer.dart';
 import 'package:bytebank_app/models/name.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NameContainer extends BlocContainer {
@@ -12,6 +11,7 @@ class NameContainer extends BlocContainer {
   }
 }
 
+// ignore: must_be_immutable
 class NameView extends StatelessWidget {
   TextEditingController _nameController = TextEditingController();
 

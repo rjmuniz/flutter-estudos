@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:bytebank_app/components/BlocContainer.dart';
 import 'package:bytebank_app/components/error.dart';
 import 'package:bytebank_app/components/failure_dialog.dart';
-import 'package:bytebank_app/components/progress.dart';
 import 'package:bytebank_app/components/progress_view.dart';
-import 'package:bytebank_app/components/success_dialog.dart';
 import 'package:bytebank_app/components/transaction_auth_dialog.dart';
 import 'package:bytebank_app/http/webclients/transactions_webclient.dart';
 import 'package:bytebank_app/models/contact.dart';
@@ -49,14 +47,14 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
       BuildContext context) async {
     emit(SendingState());
     await _send(transactionCreated, password, context);
-    emit(SentState());
   }
 
   _send(Transaction transactionCreated, String password,
       BuildContext context) async {
     final dependencies = AppDependencies.of(context);
-    final transactionSaved = await dependencies.transactionsWebClient
+    await dependencies.transactionsWebClient
         .save(transactionCreated, password)
+        .then((value) => emit(SentState()))
         .catchError(
             (e) => emit(FatalErrorFormState("HttpException:" + e.message)),
             test: (e) => e is HttpException)
@@ -67,8 +65,6 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
         .catchError(
           (e) => emit(FatalErrorFormState("Exception:" + e.message)),
         );
-
-    emit(SentState());
   }
 }
 
@@ -80,7 +76,7 @@ class TransactionFormContainer extends BlocContainer {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<TransactionFormCubit>(
       create: (context) => TransactionFormCubit(),
       child: BlocListener<TransactionFormCubit, TransactionFormState>(
         listener: (context, state) {
@@ -111,18 +107,19 @@ class TransactionForm extends StatelessWidget {
     });
   }
 
-  Future _showSuccessfulMessage(
-      Transaction transaction, BuildContext context) async {
-    if (transaction != null) {
-      await showDialog(
-        context: context,
-        builder: (contextDialog) => SuccessDialog('Successful transaction'),
-      );
+  // Future _showSuccessfulMessage(
+  //     Transaction transaction, BuildContext context) async {
+  //   if (transaction != null) {
+  //     await showDialog(
+  //       context: context,
+  //       builder: (contextDialog) => SuccessDialog('Successful transaction'),
+  //     );
+  //
+  //     Navigator.pop(context);
+  //   }
+  // }
 
-      Navigator.pop(context);
-    }
-  }
-
+  // ignore: unused_element
   Future _showFailureMessage(BuildContext context,
       {String message = 'Unknown error'}) async {
     await showDialog(

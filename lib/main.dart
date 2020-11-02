@@ -1,3 +1,4 @@
+import 'package:bytebank_app/components/localization.dart';
 import 'package:bytebank_app/components/theme.dart';
 import 'package:bytebank_app/database/dao/contact_dao.dart';
 import 'package:bytebank_app/http/webclients/transactions_webclient.dart';
@@ -37,13 +38,13 @@ class BytebankApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Bloc.observer = LogObserver();
+
     return AppDependencies(
       contactDao: this.contactDao,
       transactionsWebClient: this.transactionsWebClient,
-
       child: MaterialApp(
-
-        initialRoute: DashboardContainer.route,
+        //initialRoute: DashboardContainer.route,
         //initialRoute: CounterContainer.route,
 
         routes: {
@@ -51,13 +52,15 @@ class BytebankApp extends StatelessWidget {
           ContactsListContainer.route: (context) => ContactsListContainer(),
           ContactForm.route: (context) => ContactForm(),
           TransactionList.route: (context) => TransactionList(),
-          CounterContainer.route: (context)=> CounterContainer(),
-       //   TransactionFormContainer.route: (context) => TransactionFormContainer(Contact()),
+          CounterContainer.route: (context) => CounterContainer(),
+          //   TransactionFormContainer.route: (context) => TransactionFormContainer(Contact()),
         },
+        home: LocalicationContainer(
+          child: DashboardContainer(),
+        ),
         theme: bytebankTheme,
-        // home: Dashboard()
-        //  home: TransactionAuthDialog(),
       ),
     );
   }
 }
+

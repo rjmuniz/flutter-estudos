@@ -1,9 +1,9 @@
 
 import 'package:bytebank_app/main.dart';
 import 'package:bytebank_app/models/contact.dart';
-import 'package:bytebank_app/screens/Dashboard.dart';
+import 'package:bytebank_app/screens/dashboard/Dashboard_view.dart';
 import 'package:bytebank_app/screens/contact_form.dart';
-import 'package:bytebank_app/screens/contacts_list.dart';
+import 'package:bytebank_app/screens/contacts_list/contacts_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -23,7 +23,7 @@ void main() {
     await clickOnTheTransferFeatureItem(tester);
     await tester.pumpAndSettle();
 
-    final contactsList = find.byType(ContactsList);
+    final contactsList = find.byType(ContactsListView);
     expect(contactsList, findsOneWidget);
 
     verify(mockContactDao.findAll()).called(1);
@@ -52,7 +52,7 @@ void main() {
     verify(mockContactDao.save(Contact(0, 'Fulano Silva', 4321))).called(1);
     await tester.pumpAndSettle();
 
-    final contactsListBack = find.byType(ContactsList);
+    final contactsListBack = find.byType(ContactsListView);
     expect(contactsListBack, findsOneWidget);
 
     verify(mockContactDao.findAll()).called(1);

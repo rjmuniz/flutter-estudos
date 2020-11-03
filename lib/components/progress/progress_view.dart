@@ -1,4 +1,4 @@
-import 'package:bytebank_app/components/progress.dart';
+import 'package:bytebank_app/components/progress/progress.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
 import 'package:bytebank_app/components/message.dart';
-import 'package:bytebank_app/components/progress.dart';
+import 'package:bytebank_app/components/progress/progress.dart';
 import 'package:bytebank_app/http/webclients/transactions_webclient.dart';
 import 'package:bytebank_app/models/transaction.dart';
 import 'package:flutter/material.dart';

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bytebank_app/components/BlocContainer.dart';
 import 'package:bytebank_app/components/error.dart';
 import 'package:bytebank_app/components/failure_dialog.dart';
-import 'package:bytebank_app/components/progress_view.dart';
+import 'package:bytebank_app/components/progress/progress_view.dart';
 import 'package:bytebank_app/components/transaction_auth_dialog.dart';
 import 'package:bytebank_app/http/webclients/transactions_webclient.dart';
 import 'package:bytebank_app/models/contact.dart';
